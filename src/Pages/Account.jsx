@@ -69,12 +69,12 @@ const Account = () => {
             "accountPage.myAccount"
           )}`}
         />
-        <h1 className="text-sm md:mr-44">
+        {/* <h1 className="text-sm md:mr-44">
           {i18n.t("accountPage.welcome")}{" "}
           <span className="text-red-600">
             {firstName} {lastName}
           </span>
-        </h1>
+        </h1> */}
       </div>
       <div className="flex flex-col md:flex-row gap-28">
         <nav className="flex flex-col gap-4 text-gray-400">

@@ -54,8 +54,9 @@ const LogIn = () => {
   };
 
   return (
-    <div className="relative flex justify-center   items-center mb-36 gap-12 lg:mt-28 xl:gap-24 ">
+    <div className="flex justify-center items-center min-h-[70vh] mb-36 gap-12 lg:mt-28 xl:gap-24">
       {/* <img src={SignImg} alt="Sign Image" /> */}
+
       <div className="flex flex-col  md:mx-10 items-center sm:items-start max-lg:mt-40 justify-center">
         <h1 className="text-xl md:text-4xl font-medium font-inter ">
           Login To MediQuick
