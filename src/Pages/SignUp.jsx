@@ -11,6 +11,7 @@ import {
   GoogleAuthProvider,
 } from "firebase/auth";
 import i18n from "../components/common/components/LangConfig";
+import { Spacer } from "../common/common";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -62,17 +63,14 @@ const SignUp = () => {
   };
 
   return (
-    <div className="relative flex max-lg:flex-col-reverse justify-center  md:justify-start items-center mb-36 gap-12 lg:mt-28 xl:gap-24 ">
-      <img src={SignImg} alt="Sign Image" />
-      <div className="flex flex-col gap-6 md:gap-8 md:mx-10 items-center sm:items-start max-lg:mt-40 justify-center">
-        <h1 className="text-4xl font-medium font-inter ">
+    <div className="relative flex justify-center   items-center mb-36 gap-12 lg:mt-28 xl:gap-24 ">
+      {/* <img src={SignImg} alt="Sign Image" /> */}
+      <div className="flex flex-col items-center sm:items-start max-lg:mt-40 justify-center">
+        <h1 className="text-xl md:text-4xl font-medium font-inter ">
           {i18n.t("signUpPage.title")}
         </h1>
-        <p>{i18n.t("signUpPage.enter")}</p>
-        <form
-          className="flex flex-col gap-6 w-72 md:w-96"
-          onSubmit={handleSignUp}
-        >
+        <Spacer padding={6} />
+        <form className="flex flex-col w-72 md:w-96" onSubmit={handleSignUp}>
           <TextField
             label={i18n.t("signUpPage.email")}
             variant="standard"
@@ -80,6 +78,7 @@ const SignUp = () => {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
+          <Spacer padding={3} />
           <TextField
             type="password"
             label={i18n.t("signUpPage.password")}
@@ -88,41 +87,43 @@ const SignUp = () => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+        </form>
+
+        <Spacer padding={12} />
+        <div className="w-72 md:w-96">
           <Button
             type="submit"
             sx={{
               color: "white",
               fontSize: "16px",
-              bgcolor: "hsla(0, 68%, 56%, .9)",
               textTransform: "none",
-              padding: "16px 0",
+              // padding: "16px 0",
               borderRadius: "4px",
               fontWeight: "500",
               width: "100%",
-              marginTop: "1rem",
+              bgcolor: "hsla(0, 68%, 56%, 1)",
               ":hover": {
-                bgcolor: "hsla(0, 68%, 56%, 1)",
-                fontWeight: "500",
+                bgcolor: "hsla(0, 68%, 56%, .9)",
               },
             }}
             variant="contained"
             color="primary"
-            className="my-2"
+            className="py-4 sm:py-6 md:py-8 lg:py-16"
           >
-            {i18n.t("signUpPage.createAccount")}
+            Create Account
           </Button>
-        </form>
-
+        </div>
+        <Spacer padding={3} />
         <div className="w-72 md:w-96">
           <Button
             onClick={handleGoogleSignUp}
-            className="flex items-center justify-center gap-4"
+            className="flex items-center justify-center gap-4 py-4 sm:py-6 md:py-8 lg:py-16"
             sx={{
               color: "black",
               fontSize: "16px",
               bgcolor: "white",
               textTransform: "none",
-              padding: "16px 0",
+              // padding: "px 0",
               borderRadius: "4px",
               fontWeight: "500",
               width: "100%",
@@ -171,19 +172,20 @@ const SignUp = () => {
                 </clipPath>
               </defs>
             </svg>
-            <span> {i18n.t("signUpPage.withGoogle")}</span>
+            <span>Sign up with Google</span>
           </Button>
         </div>
+        <Spacer padding={3} />
 
-        <p className="text-gray-600 mx-auto">
-          {i18n.t("signUpPage.haveAccount")}{" "}
-          <Link
-            to="/login"
-            className="ml-2 text-gray font-medium hover:underline"
-          >
-            {i18n.t("signUpPage.login")}
-          </Link>
+        <p className="text-gray-600 mx-auto text-[10px] sm:text-xs md:text-sm">
+          <span>{i18n.t("signUpPage.haveAccount")}</span>
         </p>
+        <Link
+          to="/login"
+          className="text-[10px] sm:text-xs md:text-sm mx-auto text-gray font-medium hover:underline"
+        >
+          {i18n.t("signUpPage.login")}
+        </Link>
       </div>
       <Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
