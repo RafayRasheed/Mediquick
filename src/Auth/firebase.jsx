@@ -7,13 +7,13 @@ import { getFirestore } from "firebase/firestore"; // Import firestore module
 import { getAuth } from "firebase/auth";
 // Firebase is available after the script is loaded
 const firebaseConfig = {
-  apiKey: "AIzaSyB1dZqeMO4l3l8HXQCBEKFTyRuWsOpvFiM",
-  authDomain: "e-commerce-45a82.firebaseapp.com",
-  projectId: "e-commerce-45a82",
-  storageBucket: "e-commerce-45a82.firebasestorage.app",
-  messagingSenderId: "23041770334",
-  appId: "1:23041770334:web:d9addc89e5d851ddd285cf",
-  measurementId: "G-RX7KNP8XCD"
+  apiKey: "AIzaSyBwiXUNzt2achGM4_i6uGJwjJl4V86z6tQ",
+  authDomain: "mediquick-78b23.firebaseapp.com",
+  projectId: "mediquick-78b23",
+  storageBucket: "mediquick-78b23.firebasestorage.app",
+  messagingSenderId: "494570771144",
+  appId: "1:494570771144:web:a83f99d12b84c5e392cbfd",
+  measurementId: "G-DG9E90VRZC",
 };
 let app;
 let auth;
@@ -22,7 +22,7 @@ let firestore; // Declare firestore variable
 try {
   app = initializeApp(firebaseConfig);
   auth = getAuth(app);
-  firestore = getFirestore(app); 
+  firestore = getFirestore(app);
   // Initialize firestore
   console.log("initializing Firebase: Successfully");
 } catch (error) {

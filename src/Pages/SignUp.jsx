@@ -50,10 +50,12 @@ const SignUp = () => {
     const provider = new GoogleAuthProvider();
     try {
       // Sign up with Google
-      await signInWithPopup(auth, provider);
-      setSuccess("Signed up with Google successfully!");
+      const data = await signInWithPopup(auth, provider);
+      console.log("Signed up with Google successfully!", data);
+      setSuccess("Signed up with Google successfully!", data);
       setOpen(true);
     } catch (error) {
+      console.log("Error", error);
       setError(error.message);
       setOpen(true);
     }

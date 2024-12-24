@@ -57,9 +57,9 @@ const LogIn = () => {
       <img src={SignImg} alt="Sign Image" />
       <div className="flex flex-col gap-6 md:gap-8 md:mx-10 items-center sm:items-start max-lg:mt-40 justify-center">
         <h1 className="text-xl md:text-4xl font-medium font-inter ">
-          {i18n.t("loginPage.title")}
+          Login To MediQuick
         </h1>
-        <p>{i18n.t("loginPage.enter")}</p>
+
         <form
           className="flex flex-col gap-6 md:gap-8 w-72 md:w-96"
           onSubmit={handleLogIn}

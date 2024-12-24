@@ -30,12 +30,12 @@ const Navigations = () => {
     { path: "/allProducts", label: i18n.t("allProducts.redTitle") },
     { path: "/contact", label: i18n.t("contact") },
     { path: "/about", label: i18n.t("about") },
-    ...(currentUser
-      ? [{ path: "/account", label: i18n.t("account") }]
-      : [
-          { path: "/login", label: i18n.t("loginPage.login") },
-          { path: "/signup", label: i18n.t("signUp") },
-        ]),
+
+    { path: "/account", label: i18n.t("account") },
+
+    { path: "/login", label: i18n.t("loginPage.login") },
+    { path: "/signup", label: i18n.t("signUp") },
+    ,
   ];
 
   // Find the index of the current route
@@ -147,7 +147,7 @@ const Navigations = () => {
           variant="standard"
           indicatorColor="primary"
           textColor="primary"
-          style={{padding:0}}
+          style={{ padding: 0 }}
           value={currentRouteIndex !== -1 ? currentRouteIndex : false}
           onClick={window.scrollTo({
             top: 0,
@@ -170,7 +170,6 @@ const Navigations = () => {
               key={index}
               label={route.label}
               component={Link}
-
               to={route.path}
             />
           ))}

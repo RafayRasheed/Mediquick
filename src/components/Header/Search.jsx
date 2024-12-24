@@ -53,39 +53,36 @@ const SearchAppBar = () => {
 
   return (
     <>
-    <Search className="flex items-center justify-center w-48 min-[425px]:w-64 sm:max-[1200px]:w-96 min-[1200px]:w-60 min-[1450px]:w-96 ">
-  <Autocomplete
-    freeSolo
-    disableClearable
-    disableListWrap
-    openOnFocus
-    options={ITEMS.map((item) => item.title)}
-    value={searchText}
-    onChange={(event, newValue) => setSearchText(newValue)}
-    style={{  }}
-    renderInput={(params) => (
-      <TextField
-        {...params}
-        placeholder={i18n.t("search")}
-        onKeyDown={handleKeyDown}
-        InputProps={{
-          sx: {
-            maxHeight: { xs: "25px", sm: "30px", md: "35px", lg: "40px" },
-          },
-        }}
-      />
-    )}
-  />
-</Search>
-{/* <IconButton aria-label="search" color="inherit" className="h-12 md:h-16">
+      <Search className="flex items-center justify-center w-40 min-[425px]:w-64 sm:max-[1200px]:w-96 min-[1200px]:w-60 min-[1450px]:w-96 ">
+        <Autocomplete
+          freeSolo
+          disableClearable
+          disableListWrap
+          openOnFocus
+          options={ITEMS.map((item) => item.title)}
+          value={searchText}
+          onChange={(event, newValue) => setSearchText(newValue)}
+          style={{}}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              placeholder={i18n.t("search")}
+              onKeyDown={handleKeyDown}
+              InputProps={{
+                sx: {
+                  maxHeight: { xs: "25px", sm: "30px", md: "35px", lg: "40px" },
+                },
+              }}
+            />
+          )}
+        />
+      </Search>
+      {/* <IconButton aria-label="search" color="inherit" className="h-12 md:h-16">
   <Link to={`/allProducts/${searchText}`}>
     <CiSearch className="w-5 h-full md:w-8" />
   </Link>
 </IconButton> */}
     </>
-
-
-    
   );
 };
 

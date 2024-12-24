@@ -11,11 +11,10 @@ const Header = () => {
     >
       <div className="flex justify-between xl:justify-around items-center sm:px-8 px-2 py-1 md:py-2">
         <Logo />
-        <Navigations />
-        <div className="flex justify-center items-center md:gap-2">
-          <SearchAppBar />
-          <Profile />
-        </div>
+        {/* <Navigations /> */}
+        <SearchAppBar />
+        <Profile />
+        {/* <div className="flex justify-center items-center md:gap-2"></div> */}
       </div>
       <hr className="w-full border-gray-300 md:hidden" />
     </header>

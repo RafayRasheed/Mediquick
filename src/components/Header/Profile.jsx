@@ -6,7 +6,7 @@ import IconButton from "@mui/material/IconButton";
 import { useState } from "react";
 import { useCart } from "../../context/CartContext";
 import { useWishlist } from "../../context/WishlistContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext, auth } from "../../Auth/firebase";
 import i18n from "../common/components/LangConfig";
 import ReadmeComponent from "../Readme/ReadmeComp";
@@ -16,12 +16,16 @@ const Profile = () => {
   const { wishlistItems } = useWishlist();
   const [anchorEl, setAnchorEl] = useState(null);
   const [open, setOpen] = useState(false);
-
+  const navigate = useNavigate();
   const { currentUser } = useContext(AuthContext); // Get current user from AuthContext
 
   const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-    setOpen(true);
+    if (currentUser) {
+      setAnchorEl(event.currentTarget);
+      setOpen(true);
+    } else {
+      navigate("/login");
+    }
   };
 
   const handleClose = () => {
@@ -53,7 +57,7 @@ const Profile = () => {
             {wishlistItems.length}
           </span>
           <svg
-            className="hover:bg-red-500 rounded-full w-6 md:w-8 md:h-8"
+            className="hover:bg-gray-100 rounded-full w-6 md:w-8 md:h-8"
             viewBox="0 0 32 32"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -84,7 +88,7 @@ const Profile = () => {
           </span>
 
           <svg
-            className="hover:bg-red-500 rounded-full w-6 md:w-8 md:h-8"
+            className="hover:bg-gray-100 rounded-full w-6 md:w-8 md:h-8"
             viewBox="0 0 32 32"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -120,7 +124,37 @@ const Profile = () => {
           </svg>
         </IconButton>
       </Link>
-      {currentUser && (
+      <IconButton
+        onClick={handleClick}
+        size="small"
+        aria-controls={open ? "account-menu" : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? "true" : undefined}
+      >
+        <svg
+          className="hover:bg-gray-100 rounded-full w-6 md:w-8 md:h-8"
+          viewBox="0 0 32 32"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M24 27V24.3333C24 22.9188 23.5224 21.5623 22.6722 20.5621C21.8221 19.5619 20.669 19 19.4667 19H11.5333C10.331 19 9.17795 19.5619 8.32778 20.5621C7.47762 21.5623 7 22.9188 7 24.3333V27"
+            stroke="black"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M16.5 14C18.9853 14 21 11.9853 21 9.5C21 7.01472 18.9853 5 16.5 5C14.0147 5 12 7.01472 12 9.5C12 11.9853 14.0147 14 16.5 14Z"
+            stroke="black"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </IconButton>
+
+      {/* {currentUser && (
         <>
           <IconButton
             onClick={handleClick}
@@ -152,7 +186,7 @@ const Profile = () => {
             </svg>
           </IconButton>
         </>
-      )}
+      )} */}
       <Menu
         anchorEl={anchorEl}
         id="account-menu"
@@ -300,7 +334,7 @@ const Profile = () => {
           </MenuItem>
         </Link>
       </Menu>
-      <ReadmeComponent />
+      {/* <ReadmeComponent /> */}
 
       {/* <ThemeSwitcher /> */}
     </div>
