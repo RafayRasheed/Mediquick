@@ -81,12 +81,12 @@ const Profile = () => {
         >
           <span
             className={`absolute ml-5 mb-5 px-1 rounded-full text-white 
-      ${cartItems.length == 0 ? "hidden " : "bg-red-500"} 
-      min-h-4 min-w-4 text-[0.6rem]   
-      sm:min-h-4 sm:min-w-4 sm:text-xs 
-      md:min-h-4 md:min-w-4 md:text-[0.8rem]   
-      lg:min-h-5 lg:min-w-5 lg:text-sm
- ml-3 mb-3 
+            ${cartItems.length == 0 ? "hidden " : "bg-red-500"} 
+              min-h-4 min-w-4 text-[0.6rem]   
+              sm:min-h-4 sm:min-w-4 sm:text-xs 
+              md:min-h-4 md:min-w-4 md:text-[0.8rem]   
+              lg:min-h-5 lg:min-w-5 lg:text-sm
+              ml-3 mb-3 
               sm:ml-4 sm:mb-4 
               md:ml-5 md:mb-5
               lg:ml-6 lg:mb-6
