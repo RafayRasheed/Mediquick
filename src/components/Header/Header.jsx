@@ -9,7 +9,7 @@ const Header = () => {
       dir="ltr"
       className="fixed top-0 md:top-0 left-0 w-full z-50 bg-white shadow-md"
     >
-      <div className="flex justify-between xl:justify-around items-center sm:px-4 px-2 py-1 md:py-2">
+      <div className="flex justify-between xl:mx-16 items-center sm:px-4 px-2 py-1 md:py-2">
         <Logo />
         {/* <Navigations /> */}
         <SearchAppBar />
