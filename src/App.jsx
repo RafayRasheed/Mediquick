@@ -25,7 +25,8 @@ function App() {
       }
     };
 
-    fetchData(); // Call the function to start data loading
+    fetchData();
+    // fetchData(); // Call the function to start data loading
   }, []);
 
   return (
