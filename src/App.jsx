@@ -8,6 +8,7 @@ import i18n from "./components/common/components/LangConfig";
 import routes from "./routes";
 import Loading from "./components/common/components/Loading";
 import ScrollToTop from "./components/common/components/ScrollToTop";
+import { getDashboardAllData } from "./common/functions.jsX";
 function App() {
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -17,7 +18,8 @@ function App() {
       try {
         // Fetch data or perform asynchronous tasks here
         // For demonstration, we'll just wait for 1 second
-        await new Promise((resolve) => setTimeout(resolve, 100));
+        // await new Promise((resolve) => setTimeout(resolve, 100));
+        await getDashboardAllData({uid:1})
         setIsLoaded(true); // Update isLoaded after data is fetched
       } catch (error) {
         console.error("Error loading data:", error);
