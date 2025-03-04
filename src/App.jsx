@@ -12,21 +12,20 @@ import { getDashboardAllData } from "./common/functions.jsX";
 function App() {
   const [isLoaded, setIsLoaded] = useState(false);
 
+  const fetchData = async () => {
+    try {
+      // Fetch data or perform asynchronous tasks here
+      // For demonstration, we'll just wait for 1 second
+      // await new Promise((resolve) => setTimeout(resolve, 100));
+      await getDashboardAllData();
+      setIsLoaded(true); // Update isLoaded after data is fetched
+    } catch (error) {
+      console.error("Error loading data:", error);
+      // Handle errors (e.g., display error message)
+    }
+  };
   useEffect(() => {
     // Simulating data loading with a timeout (replace this with actual data fetching logic)
-    const fetchData = async () => {
-      try {
-        // Fetch data or perform asynchronous tasks here
-        // For demonstration, we'll just wait for 1 second
-        // await new Promise((resolve) => setTimeout(resolve, 100));
-        await getDashboardAllData({uid:1})
-        setIsLoaded(true); // Update isLoaded after data is fetched
-      } catch (error) {
-        console.error("Error loading data:", error);
-        // Handle errors (e.g., display error message)
-      }
-    };
-
     fetchData();
     // fetchData(); // Call the function to start data loading
   }, []);
