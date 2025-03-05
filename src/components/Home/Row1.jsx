@@ -30,38 +30,40 @@ const Row1 = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
   return (
-    <div className="flex flex-row ">
-      {/* Left Sidebar */}
-      <div className="text-gray-700 w-64 flex-shrink-0 hidden xl:block">
+    <div className="flex flex-row xl:mx-12 md:mx-8  ">
+      {/* Categories */}
+      <div className="text-gray-700 w-60  flex-shrink-0 hidden md:block">
         <nav className="py-6">
           <ul>
             {categories.map((category, index) => (
-              <li
+              <div
                 key={index}
-                className="relative px-4 py-2 cursor-pointer hover:underline hover:underline-offset-8 ease-in-out duration-300 transform hover:translate-x-4"
+                className="relative"
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
               >
-                <Link to={category.link}>{category.name}</Link>
+                <li className="px-2 py-2 text-base md:text-sm lg:text-lg cursor-pointer underline underline-offset-2 ease-in-out duration-300 transform hover:translate-x-4">
+                  <Link to={category.link}>{i18n.t(category.name)}</Link>
+                </li>
                 {hoveredIndex === index && (
-                  <ul className="absolute left-full top-0 bg-white shadow-md p-2 w-40">
-                    {category?.subCategories?.map((sub, subIndex) => (
+                  <ul className="absolute left-full top-0 ml-2 bg-white shadow-lg rounded-lg p-2 w-48 visible opacity-100 transition-opacity duration-300 ease-in-out">
+                    {category.subCategories.map((sub, subIndex) => (
                       <li
                         key={subIndex}
-                        className="px-4 py-2 hover:bg-gray-200"
+                        className="px-4 py-2  text-base md:text-sm lg:text-lg cursor-pointer hover:underline hover:underline-offset-8 hover:bg-gray-100 rounded-md transition duration-200"
                       >
                         {sub.name}
                       </li>
                     ))}
                   </ul>
                 )}
-              </li>
+              </div>
             ))}
           </ul>
         </nav>
       </div>
       {/* Vertical Line */}
-      <div className="border-l border-gray-300 hidden xl:block"></div>
+      <div className="border-l-4 border-gray-100 hidden md:block"></div>
 
       {/* Main Content */}
       <div
