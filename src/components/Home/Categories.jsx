@@ -11,7 +11,6 @@ const Category = ({ icon, name }) => (
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
       className=" w-full hover:animate-pulse flex gap-4 items-center justify-center flex-col bg-white  py-8 rounded-lg border border-gray-300 transition duration-300 hover:bg-cyan-400 hover:invert  hover:shadow-xl hover:-translate-y-2 "
     >
-    
       <div className="text-lg">{name}</div>
     </button>
   </Link>
@@ -20,27 +19,21 @@ const Category = ({ icon, name }) => (
 const CategoryList = () => {
   const categories = [
     {
-     
       name: i18n.t("category.categories.0"),
     },
     {
-    
       name: i18n.t("category.categories.1"),
     },
     {
-    
       name: i18n.t("category.categories.2"),
     },
     {
-      
       name: i18n.t("category.categories.3"),
     },
     {
-    
       name: i18n.t("category.categories.4"),
     },
     {
-  
       name: i18n.t("category.categories.5"),
     },
   ];

@@ -1,5 +1,14 @@
 import { auth, firestore } from "../Auth/firebase";
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
+import { storeRedux } from "../redux/store";
+import { setCategories, setProducts } from "../redux/data_reducer";
 
 export const FirestoreReference = {
   Categories: collection(firestore, "Categories"),
@@ -34,9 +43,16 @@ export async function addDataToDB(db, id, data) {
     return "Internal Error";
   }
 }
-
+function formatCategories(categories) {
+  const { Parent = [], Sub = [] } = categories;
+  const updatedParent = Parent.map((cat) => ({
+    ...cat,
+    subCategories: Sub.filter((sub) => sub.parentId === cat.id),
+  }));
+  return updatedParent;
+}
 export async function getCategoriesFromDB() {
-  let data = { parent: [], sub: [] };
+  let data = { Parent: [], Sub: [] };
 
   try {
     const categoryDoc = doc(firestore, "Categories", "1");
@@ -44,7 +60,10 @@ export async function getCategoriesFromDB() {
 
     if (docSnap.exists()) {
       data = docSnap.data();
+      data = formatCategories(data);
     }
+
+    storeRedux.dispatch(setCategories(data));
     console.log("✅ Categories fetched successfully:", data);
     return data;
   } catch (error) {
@@ -59,10 +78,16 @@ export async function getProductsFromDB() {
   let data = [];
 
   try {
-    const querySnapshot = await getDocs(collection(firestore, "Products"));
-    data = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    const productsRef = collection(firestore, "Products");
+    const q = query(productsRef, where("active", "==", true)); // Fetch only active products
 
-    console.log("✅ Products fetched successfully:", data);
+    const querySnapshot = await getDocs(q);
+    const data = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    storeRedux.dispatch(setProducts(data));
+    console.log("✅ Products fetched successfully:", data.length);
     return data;
   } catch (error) {
     // storeRedux.dispatch(setCategories(data));

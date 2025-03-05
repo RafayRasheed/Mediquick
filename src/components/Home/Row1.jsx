@@ -2,63 +2,61 @@ import i18n from "../common/components/LangConfig";
 import { Link } from "react-router-dom";
 import { ITEMS } from "../common/functions/items";
 import apple from "./apple.png";
+import { useSelector } from "react-redux";
+import { useState } from "react";
+const categories = [
+  {
+    name: "homeSections.row1.col1.0",
+    link: "/allProducts",
+    subCategories: ["Sub 1", "Sub 2", "Sub 3"],
+  },
+  {
+    name: "homeSections.row1.col1.1",
+    link: "/allProducts",
+    subCategories: ["Sub A", "Sub B"],
+  },
+  {
+    name: "homeSections.row1.col1.2",
+    link: "/allProducts",
+    subCategories: ["Sub X", "Sub Y", "Sub Z"],
+  },
+];
 
 const Row1 = () => {
   const dealItem = ITEMS.find(
     (item) => item.title === i18n.t("itemsArray.17.title")
   );
+  const categories = useSelector((state) => state.data.categories);
+  const [hoveredIndex, setHoveredIndex] = useState(null);
 
   return (
     <div className="flex flex-row ">
       {/* Left Sidebar */}
-      <div className=" text-gray-700 w-64 flex-shrink-0 hidden xl:block">
+      <div className="text-gray-700 w-64 flex-shrink-0 hidden xl:block">
         <nav className="py-6">
           <ul>
-            <li className="px-4 py-2 cursor-pointer hover:underline hover:underline-offset-8   ease-in-out  duration-300 transform hover:translate-x-4">
-              <Link to="/allProducts">
-                {i18n.t("homeSections.row1.col1.0")}
-              </Link>
-            </li>
-            <li className="px-4 py-2 cursor-pointer hover:underline hover:underline-offset-8   ease-in-out  duration-300 transform hover:translate-x-4">
-              <Link to="/allProducts">
-                {i18n.t("homeSections.row1.col1.1")}{" "}
-              </Link>
-            </li>
-            <li className="px-4 py-2 cursor-pointer hover:underline hover:underline-offset-8   ease-in-out  duration-300 transform hover:translate-x-4">
-              <Link to="/allProducts">
-                {i18n.t("homeSections.row1.col1.2")}{" "}
-              </Link>
-            </li>
-            <li className="px-4 py-2 cursor-pointer hover:underline hover:underline-offset-8   ease-in-out  duration-300 transform hover:translate-x-4">
-              <Link to="/allProducts">
-                {i18n.t("homeSections.row1.col1.3")}{" "}
-              </Link>
-            </li>
-            <li className="px-4 py-2 cursor-pointer hover:underline hover:underline-offset-8   ease-in-out  duration-300 transform hover:translate-x-4">
-              <Link to="/allProducts">
-                {i18n.t("homeSections.row1.col1.4")}{" "}
-              </Link>
-            </li>
-            <li className="px-4 py-2 cursor-pointer hover:underline hover:underline-offset-8   ease-in-out  duration-300 transform hover:translate-x-4">
-              <Link to="/allProducts">
-                {i18n.t("homeSections.row1.col1.5")}{" "}
-              </Link>
-            </li>
-            <li className="px-4 py-2 cursor-pointer hover:underline hover:underline-offset-8   ease-in-out  duration-300 transform hover:translate-x-4">
-              <Link to="/allProducts">
-                {i18n.t("homeSections.row1.col1.6")}{" "}
-              </Link>
-            </li>
-            <li className="px-4 py-2 cursor-pointer hover:underline hover:underline-offset-8   ease-in-out  duration-300 transform hover:translate-x-4">
-              <Link to="/allProducts">
-                {i18n.t("homeSections.row1.col1.7")}{" "}
-              </Link>
-            </li>
-            <li className="px-4 py-2 cursor-pointer hover:underline hover:underline-offset-8   ease-in-out  duration-300 transform hover:translate-x-4">
-              <Link to="/allProducts">
-                {i18n.t("homeSections.row1.col1.8")}{" "}
-              </Link>
-            </li>
+            {categories.map((category, index) => (
+              <li
+                key={index}
+                className="relative px-4 py-2 cursor-pointer hover:underline hover:underline-offset-8 ease-in-out duration-300 transform hover:translate-x-4"
+                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseLeave={() => setHoveredIndex(null)}
+              >
+                <Link to={category.link}>{category.name}</Link>
+                {hoveredIndex === index && (
+                  <ul className="absolute left-full top-0 bg-white shadow-md p-2 w-40">
+                    {category?.subCategories?.map((sub, subIndex) => (
+                      <li
+                        key={subIndex}
+                        className="px-4 py-2 hover:bg-gray-200"
+                      >
+                        {sub.name}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+            ))}
           </ul>
         </nav>
       </div>
