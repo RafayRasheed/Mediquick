@@ -17,8 +17,10 @@ function App() {
       // Fetch data or perform asynchronous tasks here
       // For demonstration, we'll just wait for 1 second
       // await new Promise((resolve) => setTimeout(resolve, 100));
-      await getDashboardAllData();
-      setIsLoaded(true); // Update isLoaded after data is fetched
+      const isSuccess = await getDashboardAllData();
+      if (isSuccess) {
+        setIsLoaded(true);
+      }
     } catch (error) {
       console.error("Error loading data:", error);
       // Handle errors (e.g., display error message)

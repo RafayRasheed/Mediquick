@@ -42,15 +42,20 @@ const Row1 = () => {
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
               >
-                <li className="px-2 py-2 text-base md:text-sm lg:text-lg cursor-pointer underline underline-offset-2 ease-in-out duration-300 transform hover:translate-x-4">
+                <li className="flex items-center  px-2 py-1 text-base md:text-sm lg:text-lg cursor-pointer underline underline-offset-2 ease-in-out duration-300 transform hover:translate-x-4">
                   <Link to={category.link}>{i18n.t(category.name)}</Link>
+                  <img
+                    src="../../assets/images/go.png"
+                    alt="icon"
+                    className="w-4 h-4"
+                  />
                 </li>
                 {hoveredIndex === index && (
                   <ul className="absolute left-full top-0 ml-2 bg-white shadow-lg rounded-lg p-2 w-48 visible opacity-100 transition-opacity duration-300 ease-in-out">
                     {category.subCategories.map((sub, subIndex) => (
                       <li
                         key={subIndex}
-                        className="px-4 py-2  text-base md:text-sm lg:text-lg cursor-pointer hover:underline hover:underline-offset-8 hover:bg-gray-100 rounded-md transition duration-200"
+                        className="px-4 py-2  text-base md:text-sm lg:text-lg cursor-pointer  hover:bg-gray-100 rounded-md transition duration-200"
                       >
                         {sub.name}
                       </li>
