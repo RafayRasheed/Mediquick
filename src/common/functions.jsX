@@ -64,7 +64,7 @@ export async function getCategoriesFromDB() {
       data = formatCategories(data);
     }
 
-    storeRedux.dispatch(setCategories([...data, ...data]));
+    storeRedux.dispatch(setCategories(data));
     console.log("✅ Categories fetched successfully:", data);
     return data;
   } catch (error) {

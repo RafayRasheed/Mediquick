@@ -59,7 +59,7 @@ const Row1 = () => {
                       {category.subCategories.map((sub, subIndex) => (
                         <li
                           key={subIndex}
-                          className="px-4 py-1.5 w-full text-base md:text-xs lg:text-sm cursor-pointer hover:text-white hover:bg-red-400 transition duration-200 border-b border-gray-200 last:border-none"
+                          className="px-4 py-1.5 w-full text-base md:text-xs lg:text-sm cursor-pointer hover:text-white hover:bg-red-500 transition duration-200 border-b border-gray-200 last:border-none"
                         >
                           {sub.name}
                         </li>
