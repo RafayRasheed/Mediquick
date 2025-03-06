@@ -9,7 +9,7 @@ import Featured from "../components/Home/Featured";
 import { ITEMS } from "../components/common/functions/items";
 const Home = () => {
   return (
-    <div dir="ltr" className="flex flex-col mt-28 gap-3">
+    <div dir="ltr" className="flex flex-col mt-20 gap-3">
       <Row1 />
       <FlashSale />
       <Categories />

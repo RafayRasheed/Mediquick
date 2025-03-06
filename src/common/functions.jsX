@@ -9,6 +9,7 @@ import {
 } from "firebase/firestore";
 import { storeRedux } from "../redux/store";
 import { setCategories, setProducts } from "../redux/data_reducer";
+import { dark } from "@mui/material/styles/createPalette";
 
 export const FirestoreReference = {
   Categories: collection(firestore, "Categories"),
@@ -45,7 +46,7 @@ export async function addDataToDB(db, id, data) {
 }
 function formatCategories(categories) {
   const { Parent = [], Sub = [] } = categories;
-  const updatedParent = Parent.map((cat) => ({
+  const updatedParent = Parent.slice(0, 6).map((cat) => ({
     ...cat,
     subCategories: Sub.filter((sub) => sub.parentId === cat.id),
   }));
@@ -63,7 +64,7 @@ export async function getCategoriesFromDB() {
       data = formatCategories(data);
     }
 
-    storeRedux.dispatch(setCategories(data));
+    storeRedux.dispatch(setCategories([...data, ...data]));
     console.log("✅ Categories fetched successfully:", data);
     return data;
   } catch (error) {

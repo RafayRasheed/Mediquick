@@ -4,6 +4,8 @@ import { ITEMS } from "../common/functions/items";
 import apple from "./apple.png";
 import { useSelector } from "react-redux";
 import { useState } from "react";
+import goIcon from "../../assets/images/drop.png";
+
 const categories = [
   {
     name: "homeSections.row1.col1.0",
@@ -30,49 +32,53 @@ const Row1 = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
   return (
-    <div className="flex flex-row xl:mx-12 md:mx-8  ">
+    <div className=" xl:mx-12 md:mx-8 ">
       {/* Categories */}
-      <div className="text-gray-700 w-60  flex-shrink-0 hidden md:block">
-        <nav className="py-6">
-          <ul>
+      <div className="text-gray-700  flex-shrink-0 hidden md:block">
+        <nav className="py-0">
+          <ul className="flex flex-row sm:px-0 md:px-4 lg:px-16 xl:px-32,  justify-around">
+            {/* Add this class */}
             {categories.map((category, index) => (
               <div
                 key={index}
-                className="relative"
+                className="relative z-10"
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
               >
-                <li className="flex items-center  px-2 py-1 text-base md:text-sm lg:text-lg cursor-pointer underline underline-offset-2 ease-in-out duration-300 transform hover:translate-x-4">
+                <li className="flex flex-row items-center px-2 py-1 text-base md:text-xs lg:text-sm cursor-pointer underline underline-offset-2 ease-in-out duration-300 transform hover:-translate-y-1">
                   <Link to={category.link}>{i18n.t(category.name)}</Link>
                   <img
-                    src="../../assets/images/go.png"
+                    src={goIcon}
                     alt="icon"
-                    className="w-4 h-4"
+                    className="w-2 h-2 md:h-3 md:w-3 lg:h-4 lg:w-4 ml-2"
                   />
                 </li>
                 {hoveredIndex === index && (
-                  <ul className="absolute left-full top-0 ml-2 bg-white shadow-lg rounded-lg p-2 w-48 visible opacity-100 transition-opacity duration-300 ease-in-out">
-                    {category.subCategories.map((sub, subIndex) => (
-                      <li
-                        key={subIndex}
-                        className="px-4 py-2  text-base md:text-sm lg:text-lg cursor-pointer  hover:bg-gray-100 rounded-md transition duration-200"
-                      >
-                        {sub.name}
-                      </li>
-                    ))}
-                  </ul>
+                  <div className="pt-0.5 absolute left-2 md:w-40 lg:w-48">
+                    <ul className="overflow-hidden bg-white opacity-100 transition-opacity duration-300 ease-in-out rounded-md border border-gray-200 shadow-md flex flex-col items-center">
+                      {category.subCategories.map((sub, subIndex) => (
+                        <li
+                          key={subIndex}
+                          className="px-4 py-1.5 w-full text-base md:text-xs lg:text-sm cursor-pointer hover:text-white hover:bg-red-400 transition duration-200 border-b border-gray-200 last:border-none"
+                        >
+                          {sub.name}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 )}
               </div>
             ))}
           </ul>
         </nav>
       </div>
+
       {/* Vertical Line */}
-      <div className="border-l-4 border-gray-100 hidden md:block"></div>
+      {/* <div className="border-l-4 border-gray-100 hidden md:block"></div> */}
 
       {/* Main Content */}
-      <div
-        className="flex xl:my-10 xl:ml-10 xl:gap-16 items-center jusify-between flex-col-reverse 
+      {/* <div
+        className="flex xl:my-0 ml-6 xl:gap-16 items-center jusify-between flex-col-reverse 
       md:flex-row  md:h-96 bg-black text-white w-full "
       >
         <div className="flex flex-col md:max-w-72 gap-5 items-center md:items-start justify-center md:ml-16">
@@ -117,7 +123,7 @@ const Row1 = () => {
             </Link>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
