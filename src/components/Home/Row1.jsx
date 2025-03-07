@@ -5,6 +5,7 @@ import apple from "./apple.png";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import goIcon from "../../assets/images/drop.png";
+import PosterSlider from "./PosterSlider";
 
 const categories = [
   {
@@ -31,24 +32,23 @@ const Row1 = () => {
   const categories = useSelector((state) => state.data.categories);
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
-
+return (<PosterSlider/>)
   return (
-    <div className=" xl:mx-12 md:mx-8 ">
+    <div className="hidden md:block mx-4 sm:mx-6 xl:mx-24 md:mx-8 sm:mt-0 md:mt-10 lg:mt-12 xl:mt-16">
       <div
-        className="flex xl:my-0 ml-6 xl:gap-16 items-center jusify-between flex-col-reverse 
+        className="flex xl:my-0  xl:gap-16 items-center justify-around flex-col-reverse 
         md:flex-row  md:h-96 bg-black text-white w-full "
       >
         <div className="flex flex-col md:max-w-72 gap-5 items-center md:items-start justify-center md:ml-16">
-          <div className="max-w-72 flex jusify-center items-center gap-6">
-            <img src={apple} alt="apple" />
-            <h1 className="text-lg">{i18n.t("homeSections.row1.col2.0")}</h1>
-          </div>
-          <h2 className="text-2xl md:text-5xl leading-10">
+
+          <h2 className="text-2xl   lg:text-2xl xl:text-4xl leading-10">
             {i18n.t("homeSections.row1.col2.1")}
           </h2>
           <Link to="/allProducts">
-            <button className="mb-8 md:mb-0 flex gap-2 underline underline-offset-8 py-2 px-6 focus:underline-offset-2  ease-in-out  duration-300 transform hover:translate-x-4">
-              <span>{i18n.t("homeSections.row1.col2.2")}</span>
+            <button className="mb-8 md:mb-0 flex gap-2 underline underline-offset-8 py-2  focus:underline-offset-2  ease-in-out  duration-300 transform hover:translate-x-4">
+              <h2 className="text-lg lg:text-lg xl:text-xl leading-10">
+            {i18n.t("homeSections.row1.col2.2")}
+          </h2>
               <svg
                 className="mt-1 "
                 width="24"
@@ -79,6 +79,14 @@ const Row1 = () => {
               />
             </Link>
           </div>
+        </div>
+
+        <div className=" hidden xl:block md:w-1/4 gap-5 items-center md:items-start justify-center md:mr-4">
+   
+          <h2 className="text-base  md:text-lg lg:text-xl xl:text-2xl leading-10">
+            {i18n.t("sfd behrieqat hrdisjgnbswrf itghbqaet sretgn rfwtbugbsg bteb etbethb betitbg  bethe gtbet wt w btget  ")}
+          </h2>
+          
         </div>
       </div>
     </div>

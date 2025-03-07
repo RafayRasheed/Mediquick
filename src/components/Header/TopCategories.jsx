@@ -24,7 +24,7 @@ const TopCategories = () => {
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
               >
-                <li className="flex flex-row items-center px-2 py-1 text-base md:text-xs lg:text-base cursor-pointer underline underline-offset-2 ease-in-out duration-300 transform hover:-translate-y-1">
+                <li className="flex flex-row items-center px-2 py-1 text-base md:text-xs lg:text-sm cursor-pointer underline underline-offset-2 ease-in-out duration-300 transform hover:-translate-y-1">
                   <Link to={category.link}>{i18n.t(category.name)}</Link>
                   <img
                     src={goIcon}
