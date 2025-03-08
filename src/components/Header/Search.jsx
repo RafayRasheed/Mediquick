@@ -70,6 +70,7 @@ const SearchAppBar = () => {
               onKeyDown={handleKeyDown}
               InputProps={{
                 sx: {
+                  fontSize: { xs:'10px', sm: "14px", md: "16px", lg: "18px" },
                   maxHeight: { xs: "25px", sm: "30px", md: "35px", lg: "40px" },
                 },
               }}

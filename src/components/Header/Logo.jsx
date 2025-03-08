@@ -12,7 +12,7 @@ const Logo = () => {
           <img
             src={appDetails.logo}
             alt="Profile"
-            className="w-18 h-6 min-[500px]:w-32 min-[500px]:h-10 md:w-36 md:h-12 object-contain"
+            className="w-20 h-9 min-[500px]:w-32 min-[500px]:h-10 md:w-36 md:h-12 object-contain"
           />
         </Link>
       ) : (
