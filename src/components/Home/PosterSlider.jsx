@@ -19,7 +19,25 @@ function PosterSlider() {
     ];
 
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [iconSize, setIconSize] = useState(30);
 
+    useEffect(() => {
+      const updateSize = () => {
+        if (window.innerWidth < 600) {
+          setIconSize(15); // Smaller size for mobile
+        } else if (window.innerWidth < 1024) {
+          setIconSize(25); // Medium size for tablets
+        } else {
+          setIconSize(30); // Default size for desktops
+        }
+      };
+  
+      updateSize(); // Initial size
+      window.addEventListener("resize", updateSize);
+  
+      return () => window.removeEventListener("resize", updateSize);
+    }, []);
+    console.log(iconSize)
     const prevSlide = () => {
         setCurrentIndex((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
     };
@@ -37,7 +55,7 @@ function PosterSlider() {
         return () => clearInterval(interval);
     }, [currentIndex]);
     return (
-        <div className="w-full  mt-8 md:mt-10  xl:mt-16 lg:mt-14  hidden md:block h-[200px]  sm:h-[200px] md:h-[240px] lg:h-[320px] xl:h-[365px] m-auto py-16 px-0 relative group">
+        <div  className="w-full  mt-0 sm:mt-4 md:mt-10  xl:mt-16 lg:mt-14  h-[100px]  sm:h-[200px] md:h-[240px] lg:h-[320px] xl:h-[365px] m-auto  px-0 relative group">
             {/* Image Slider */}
             <div className="w-full h-full flex justify-center items-center">
                 {slides.map((slide, index) => (
@@ -54,26 +72,26 @@ function PosterSlider() {
             {/* Left Arrow */}
             <div
                 onClick={prevSlide}
-                className="hidden group-hover:block absolute top-[50%] left-5 -translate-y-1/2 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer"
+                className="hidden group-hover:block absolute top-[50%] left-8 -translate-y-1/2 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer"
             >
-                <BsChevronCompactLeft size={30} />
+                <BsChevronCompactLeft size={iconSize} />
             </div>
 
             {/* Right Arrow */}
             <div
                 onClick={nextSlide}
-                className="hidden group-hover:block absolute top-[50%] right-5 -translate-y-1/2 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer"
+                className="hidden group-hover:block absolute top-[50%] right-8 -translate-y-1/2 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer"
             >
-                <BsChevronCompactRight size={30} />
+                <BsChevronCompactRight size={iconSize} />
             </div>
 
             {/* Dots Navigation */}
-            <div className="flex justify-center py-2">
+            <div className="flex justify-center py-0 sm:py-2">
                 {slides.map((_, index) => (
                     <div
                         key={index}
                         onClick={() => goToSlide(index)}
-                        className={`text-2xl cursor-pointer ${index === currentIndex ? "text-gray-800" : "text-gray-400"
+                        className={`text-xl cursor-pointer ${index === currentIndex ? "text-red-500" : "text-gray-400"
                             }`}
                     >
                         <RxDotFilled />

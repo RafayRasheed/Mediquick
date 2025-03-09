@@ -29,7 +29,7 @@ const Search = styled("div")(({ theme }) => ({
         borderRadius: "10000px",
         fontSize: "0.9rem", // Default font size for input
         [theme.breakpoints.down("sm")]: {
-          fontSize: "0.8rem", // Smaller font size for mobile
+          fontSize: "0.6rem", // Smaller font size for mobile
         },
       },
     },
@@ -70,7 +70,6 @@ const SearchAppBar = () => {
               onKeyDown={handleKeyDown}
               InputProps={{
                 sx: {
-                  fontSize: { xs:'10px', sm: "14px", md: "16px", lg: "18px" },
                   maxHeight: { xs: "25px", sm: "30px", md: "35px", lg: "40px" },
                 },
               }}
