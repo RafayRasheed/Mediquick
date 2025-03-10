@@ -11,18 +11,39 @@ import RatingComp from "./Rating";
 
 const FlashSaleItem = ({ item }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [imageURI, setImageURI] = useState(null)
+  const convertBase64ToImageUri = ({base64, type}) => {
+    // console.log(type)
+    const base64Data = base64.split(",")[1] || base64;
 
-  useEffect(() => {
-    const storedQuantity = JSON.parse(localStorage.getItem("cartItems"))?.find(
-      (anItem) => anItem.id == item.id
-    )?.quantity;
+    try {
+        const byteCharacters = atob(base64Data);
+        const byteArrays = new Uint8Array(byteCharacters.length);
 
-    if (storedQuantity === 0) {
-      item.quantity = 0;
-    } else {
-      item.quantity = storedQuantity || 0;
+        for (let i = 0; i < byteCharacters.length; i++) {
+            byteArrays[i] = byteCharacters.charCodeAt(i);
+        }
+
+        const blob = new Blob([byteArrays], { type });
+        return URL.createObjectURL(blob);
+    } catch (error) {
+        console.error("Invalid Base64 string:", error);
+        return null;
     }
-  }, [item]);
+};
+  useEffect(() => {
+    const imageSRC = item.images[item.defaultProductOption.imageId-1]
+    setImageURI(convertBase64ToImageUri(imageSRC))
+    // const storedQuantity = JSON.parse(localStorage.getItem("cartItems"))?.find(
+    //   (anItem) => anItem.id == item.id
+    // )?.quantity;
+
+    // if (storedQuantity === 0) {
+    //   item.quantity = 0;
+    // } else {
+    //   item.quantity = storedQuantity || 0;
+    // }
+  }, []);
 
   const { handleAddToCart, isInCart } = AddToCart({ item }); // Use AddToCart component to get handleAddToCart and isInCart
 
@@ -31,7 +52,7 @@ const FlashSaleItem = ({ item }) => {
     const stars = [];
     for (let i = 0; i < 5; i++) {
       // Determine star color based on index and item.stars
-      const starColor = i < item.stars ? "#FFAD33" : "#D1D5DB"; // Orange if index < item.stars, gray otherwise
+      const starColor = i < item.rating ? "#FFAD33" : "#D1D5DB"; // Orange if index < item.stars, gray otherwise
       stars.push(
         <svg
           key={i}
@@ -50,61 +71,60 @@ const FlashSaleItem = ({ item }) => {
 
   return (
     <div className="relative mx-2 ">
-      <div
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        className="relative rounded flex items-center justify-center bg-zinc-100 w-[270px] h-80 md:h-60 transform transition-transform duration-300 hover:scale-105 focus:outline-none hover:-translate-y-2"
-      >
-        {isHovered && (
-          <button
-            onClick={handleAddToCart}
-            className={`z-10 absolute bottom-0 left-0 right-0 bg-black text-white py-2 px-4  duration-300  hover:bg-gray-800 focus:outline-none ${
-              isInCart && "bg-red-500"
-            }`}
-          >
-            {isInCart ? i18n.t("removeFromCart") : i18n.t("addToCart")}
-          </button>
-        )}
-        {item.discount && (
-          <div className="absolute top-0 left-0 bg-red-500 text-white py-1 px-3 m-2 rounded">
-            -{item.discount}%
-          </div>
-        )}
+     <div
+  onMouseEnter={() => setIsHovered(true)}
+  onMouseLeave={() => setIsHovered(false)}
+  className="relative rounded flex items-center justify-center bg-zinc-100 w-[270px] h-80 md:h-60 transform transition-transform duration-300 hover:scale-105 focus:outline-none hover:-translate-y-2 overflow-hidden"
+>
+  {isHovered && (
+    <button
+      onClick={handleAddToCart}
+      className={`z-10 absolute bottom-0 left-0 right-0 bg-black text-white py-2 px-4 duration-300 hover:bg-gray-800 focus:outline-none ${
+        isInCart && "bg-red-500"
+      }`}
+    >
+      {isInCart ? i18n.t("removeFromCart") : i18n.t("addToCart")}
+    </button>
+  )}
+  {item.defaultProductOption.discount && (
+    <div className="absolute top-0 left-0 bg-red-500 text-white py-1 px-3 m-2 rounded">
+      -{item.defaultProductOption.discount}%
+    </div>
+  )}
+  {item.state && (
+    <div className="absolute top-0 left-0 bg-green text-white py-1 px-3 m-2 rounded">
+      {i18n.t("new")}
+    </div>
+  )}
+  <Link to={{ pathname: `/allProducts/${item.title}` }} key={item.id}>
+    <img
+      loading="lazy"
+      src={imageURI}
+      alt={item.title}
+      className="hover:animate-pulse w-full h-full object-cover rounded"
+    />
+  </Link>
+  <WishlistIcon selectedProduct={item} style="absolute top-3 right-3" />
+</div>
 
-        {item.state && (
-          <div className="absolute top-0 left-0 bg-green text-white py-1 px-3 m-2 rounded">
-            {i18n.t("new")}
-          </div>
-        )}
-        <Link to={{ pathname: `/allProducts/${item.title}` }} key={item.id}>
-          <img
-            loading="lazy"
-            src={item.imageSrc}
-            alt={item.title}
-            className="hover:animate-pulse  max-h-52  w-full object-contain"
-          />
-        </Link>
-
-        <WishlistIcon selectedProduct={item} style="absolute top-3 right-3" />
-      </div>
       <div className="flex md:items-start items-center flex-col ">
         <h3 className="text-lg font-base mt-4">{item.title}</h3>
-        <p className="text-red-500  text-sm font-semibold line-clamp-2">
-          ${item.price}
-          {item.discount && (
-            <span className="ml-2 text-gray-500 text-sm font-semibold line-through">
-              ${item.price + (item.price * item.discount) / 100}
+        <p className="text-red-500  text-base font-semibold line-clamp-2">
+          ${item.defaultProductOption.price}
+          {item.defaultProductOption.discount && (
+            <span className="ml-2 text-gray-500 text-xs font-semibold line-through">
+              ${item.defaultProductOption.discountedPrice}
             </span>
           )}
         </p>
         <span>
-          <div className="flex mt-2 text-gray-500 text-sm font-semibold gap-2 items-center ">
-            {renderStars()} <span>({item.rates})</span>
-            <RatingComp
+          <div className="flex mt-1 text-gray-500 text-sm font-semibold gap-2 items-center ">
+            {renderStars()} <span>({item.noOfRatings})</span>
+            {/* <RatingComp
               text={i18n.t("productPage.review")}
               variant="primary"
               item={item}
-            />
+            /> */}
           </div>
         </span>
       </div>

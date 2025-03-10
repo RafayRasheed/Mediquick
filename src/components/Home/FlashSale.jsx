@@ -6,7 +6,9 @@ import ViewAll from "../common/components/ViewAll";
 import calculateTimeLeft from "../common/functions/calculateTimeLeft";
 import i18n from "../common/components/LangConfig";
 import { ITEMS } from "../common/functions/items";
+import { useSelector } from "react-redux";
 const FlashSale = () => {
+  const {products} = useSelector(state=>state.data)
   const [timeLeft, setTimeLeft] = useState(
     calculateTimeLeft(new Date("2024-10-27T00:00:00"))
   );
@@ -54,14 +56,11 @@ const FlashSale = () => {
       </div>
 
       <div className="scrollbar relative  md:overflow-x-hidden hover:overflow-scroll  overflow-y-hidden flex justify-start items-center h-[500px] md:h-[400px] ">
-        {saleItems.map((item, index) => (
+        {products?.map((item, index) => (
           <FlashSaleItem
             key={item.id}
             item={item}
-            index={index}
-            totalItems={saleItems.length}
-            stars={item.stars}
-            rates={item.rates}
+           
           />
         ))}
       </div>

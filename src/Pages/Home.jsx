@@ -12,12 +12,12 @@ const Home = () => {
     <div dir="ltr" className="flex flex-col mt-20 gap-3">
       <Row1 />
       <FlashSale />
-      <Categories />
+      {/* <Categories />
       <BestSelling items={ITEMS} />
       <Deal />
       <AllProducts items={ITEMS} />
       <Featured />
-      <Services />
+      <Services /> */}
     </div>
   );
 };

@@ -37,7 +37,6 @@ function PosterSlider() {
   
       return () => window.removeEventListener("resize", updateSize);
     }, []);
-    console.log(iconSize)
     const prevSlide = () => {
         setCurrentIndex((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
     };
