@@ -81,7 +81,7 @@ const WishlistIcon = ({ selectedProduct, style = "" }) => {
 export default WishlistIcon;
 WishlistIcon.propTypes = {
   selectedProduct: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
     // Add other required props for selectedProduct if necessary
   }).isRequired,
 };

@@ -132,16 +132,16 @@ const FlashSaleItem = ({ item }) => {
   );
 };
 
-FlashSaleItem.propTypes = {
-  item: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    imageSrc: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    stars: PropTypes.number.isRequired,
-    rates: PropTypes.number.isRequired,
-    discount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  }).isRequired,
-};
+// FlashSaleItem.propTypes = {
+//   item: PropTypes.shape({
+//     id: PropTypes.string.isRequired,
+//     imageSrc: PropTypes.string.isRequired,
+//     title: PropTypes.string.isRequired,
+//     price: PropTypes.number.isRequired,
+//     stars: PropTypes.number.isRequired,
+//     rates: PropTypes.number.isRequired,
+//     discount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+//   }).isRequired,
+// };
 
 export default FlashSaleItem;
