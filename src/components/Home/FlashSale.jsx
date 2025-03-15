@@ -10,17 +10,16 @@ import { useSelector } from "react-redux";
 const FlashSale = () => {
   const {products} = useSelector(state=>state.data)
   const [timeLeft, setTimeLeft] = useState(
-    calculateTimeLeft(new Date("2024-10-27T00:00:00"))
+    calculateTimeLeft(new Date("2025-10-27T00:00:00"))
   );
   const saleItems = ITEMS.filter((item) => item.discount !== "");
-
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setTimeLeft(calculateTimeLeft(new Date("2024-10-27T00:00:00")));
+    const timer = setInterval(() => {
+      setTimeLeft(calculateTimeLeft(new Date("2025-05-27T00:00:00")));
     }, 1000);
 
-    return () => clearTimeout(timer);
-  });
+    return () => clearInterval(timer);
+  },[]);
 
   return (
     <div className=" p-4 ">

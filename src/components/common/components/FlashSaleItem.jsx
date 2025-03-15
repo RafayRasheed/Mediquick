@@ -12,27 +12,27 @@ import RatingComp from "./Rating";
 const FlashSaleItem = ({ item }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [imageURI, setImageURI] = useState(null)
-  const convertBase64ToImageUri = ({base64, type}) => {
+  const convertBase64ToImageUri = ({ base64, type }) => {
     // console.log(type)
     const base64Data = base64.split(",")[1] || base64;
 
     try {
-        const byteCharacters = atob(base64Data);
-        const byteArrays = new Uint8Array(byteCharacters.length);
+      const byteCharacters = atob(base64Data);
+      const byteArrays = new Uint8Array(byteCharacters.length);
 
-        for (let i = 0; i < byteCharacters.length; i++) {
-            byteArrays[i] = byteCharacters.charCodeAt(i);
-        }
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteArrays[i] = byteCharacters.charCodeAt(i);
+      }
 
-        const blob = new Blob([byteArrays], { type });
-        return URL.createObjectURL(blob);
+      const blob = new Blob([byteArrays], { type });
+      return URL.createObjectURL(blob);
     } catch (error) {
-        console.error("Invalid Base64 string:", error);
-        return null;
+      console.error("Invalid Base64 string:", error);
+      return null;
     }
-};
+  };
   useEffect(() => {
-    const imageSRC = item.images[item.defaultProductOption.imageId-1]
+    const imageSRC = item.images[item.defaultProductOption.imageId - 1]
     setImageURI(convertBase64ToImageUri(imageSRC))
     // const storedQuantity = JSON.parse(localStorage.getItem("cartItems"))?.find(
     //   (anItem) => anItem.id == item.id
@@ -70,42 +70,41 @@ const FlashSaleItem = ({ item }) => {
   };
 
   return (
-    <div className="relative mx-2 ">
-     <div
-  onMouseEnter={() => setIsHovered(true)}
-  onMouseLeave={() => setIsHovered(false)}
-  className="relative rounded flex items-center justify-center bg-zinc-100 w-[270px] h-80 md:h-60 transform transition-transform duration-300 hover:scale-105 focus:outline-none hover:-translate-y-2 overflow-hidden"
->
-  {isHovered && (
-    <button
-      onClick={handleAddToCart}
-      className={`z-10 absolute bottom-0 left-0 right-0 bg-black text-white py-2 px-4 duration-300 hover:bg-gray-800 focus:outline-none ${
-        isInCart && "bg-red-500"
-      }`}
-    >
-      {isInCart ? i18n.t("removeFromCart") : i18n.t("addToCart")}
-    </button>
-  )}
-  {item.defaultProductOption.discount && (
-    <div className="absolute top-0 left-0 bg-red-500 text-white py-1 px-3 m-2 rounded">
-      -{item.defaultProductOption.discount}%
-    </div>
-  )}
-  {item.state && (
-    <div className="absolute top-0 left-0 bg-green text-white py-1 px-3 m-2 rounded">
-      {i18n.t("new")}
-    </div>
-  )}
-  <Link to={{ pathname: `/allProducts/${item.title}` }} key={item.id}>
-    <img
-      loading="lazy"
-      src={imageURI}
-      alt={item.title}
-      className="hover:animate-pulse w-full h-full object-cover rounded"
-    />
-  </Link>
-  <WishlistIcon selectedProduct={item} style="absolute top-3 right-3" />
-</div>
+    <div className="relative md:mx-4 mx-2 ">
+      <div
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        className="relative rounded flex items-center justify-center bg-zinc-100 w-[270px] h-44 sm:h-52 md:h-60 lg:h-64 transform transition-transform duration-300 hover:scale-105 focus:outline-none hover:-translate-y-1 overflow-hidden"
+      >
+        {isHovered && (
+          <button
+            onClick={handleAddToCart}
+            className={`z-10 absolute bottom-0 left-0 right-0 bg-black text-white py-2 px-4 duration-300 hover:bg-gray-800 focus:outline-none ${isInCart && "bg-red-500"
+              }`}
+          >
+            {isInCart ? i18n.t("removeFromCart") : i18n.t("addToCart")}
+          </button>
+        )}
+        {item.defaultProductOption.discount && (
+          <div className="absolute top-0 left-0 bg-red-500 text-white py-1 px-3 m-2 rounded overflow-hidden">
+            -{item.defaultProductOption.discount}%
+          </div>
+        )}
+        {item.state && (
+          <div className="absolute top-0 left-0 bg-green text-white py-1 px-3 m-2 rounded">
+            {i18n.t("new")}
+          </div>
+        )}
+        <Link to={{ pathname: `/allProducts/${item.title}` }} key={item.id}>
+          <img
+            loading="lazy"
+            src={imageURI}
+            alt={item.title}
+            className=" max-h-40 sm:max-h-44 md:max-h-52 lg:max-h-56   w-full  object-contain rounded"
+          />
+        </Link>
+        <WishlistIcon selectedProduct={item} style="absolute top-3 right-3" />
+      </div>
 
       <div className="flex md:items-start items-center flex-col ">
         <h3 className="text-lg font-base mt-4">{item.title}</h3>
