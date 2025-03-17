@@ -8,10 +8,11 @@ import { Link } from "react-router-dom";
 import WishlistIcon from "./WishlistIcon";
 import AddToCart from "./AddToCart";
 import RatingComp from "./Rating";
+import { formatUrl } from "../../../common/functions.jsX";
 
 const FlashSaleItem = ({ item }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const [imageURI, setImageURI] = useState(null)
+  const [imageURI, setImageURI] = useState(null);
   const convertBase64ToImageUri = ({ base64, type }) => {
     // console.log(type)
     const base64Data = base64.split(",")[1] || base64;
@@ -32,8 +33,8 @@ const FlashSaleItem = ({ item }) => {
     }
   };
   useEffect(() => {
-    const imageSRC = item.images[item.defaultProductOption.imageId - 1]
-    setImageURI(convertBase64ToImageUri(imageSRC))
+    const imageSRC = item.images[item.defaultProductOption.imageId - 1];
+    setImageURI(convertBase64ToImageUri(imageSRC));
     // const storedQuantity = JSON.parse(localStorage.getItem("cartItems"))?.find(
     //   (anItem) => anItem.id == item.id
     // )?.quantity;
@@ -79,8 +80,9 @@ const FlashSaleItem = ({ item }) => {
         {isHovered && (
           <button
             onClick={handleAddToCart}
-            className={`z-10 absolute bottom-0 left-0 right-0 bg-black text-white py-2 px-4 duration-300 hover:bg-gray-800 focus:outline-none ${isInCart && "bg-red-500"
-              }`}
+            className={`z-10 absolute bottom-0 left-0 right-0 bg-black text-white py-2 px-4 duration-300 hover:bg-gray-800 focus:outline-none ${
+              isInCart && "bg-red-500"
+            }`}
           >
             {isInCart ? i18n.t("removeFromCart") : i18n.t("addToCart")}
           </button>
@@ -95,7 +97,10 @@ const FlashSaleItem = ({ item }) => {
             {i18n.t("new")}
           </div>
         )}
-        <Link to={{ pathname: `/allProducts/${item.title}` }} key={item.id}>
+        <Link
+          to={{ pathname: `/p/${formatUrl(item.id, item.title)}` }}
+          key={item.id}
+        >
           <img
             loading="lazy"
             src={imageURI}

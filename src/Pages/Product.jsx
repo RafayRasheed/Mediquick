@@ -16,6 +16,7 @@ const Product = () => {
   const [quantity, setQuantity] = useState(0);
   const [selectedSize, setSelectedSize] = useState(""); // State to track selected size
   let { title } = useParams();
+  console.log(title);
 
   const selectedProduct = ITEMS.find((item) => item.title === title);
 

@@ -113,7 +113,15 @@ export function encodeInfo(info) {
 export function deccodeInfo(encode) {
   return Base64.decode(encode);
 }
-
+function convertToKebabCase(str) {
+  return str
+    .toLowerCase() // Convert the string to lowercase
+    .trim() // Remove leading and trailing whitespace
+    .replace(/\s+/g, "-"); // Replace spaces with dashes
+}
+export function formatUrl(id, title) {
+  return `${id}-pn-${convertToKebabCase(title)}`;
+}
 export function dataFullData() {
   const date = new Date();
 

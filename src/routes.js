@@ -32,7 +32,7 @@ const routes = [
       { path: "payment", element: Payment },
       { path: "allProducts", element: AllProducts },
       { path: "category", element: Category },
-      { path: "allProducts/:title", element: Product },
+      { path: "p/:title", element: Product },
       { path: "*", element: NotFound },
     ],
   },

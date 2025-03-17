@@ -51,7 +51,7 @@ const CartItem = ({ item }) => {
           <IconButton onClick={handleRemove} className="absolute -top-4">
             <RemoveIcon />
           </IconButton>
-          <Link to={{ pathname: `/allProducts/${item.title}` }} key={item.id}>
+          <Link to={{ pathname: `/p/${item.id}-${item.title}` }} key={item.id}>
             <img
               loading="lazy"
               src={item.imageSrc}
