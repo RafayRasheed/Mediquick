@@ -183,7 +183,7 @@ function convertToKebabCase(str) {
     .replace(/\s+/g, "-"); // Replace spaces with dashes
 }
 export function formatUrl(id, title, set) {
-  const diff = "-pn-";
+  const diff = "-mq-";
   return set
     ? `${id}${diff}${convertToKebabCase(title)}`
     : title.split(diff)[0];

@@ -29,7 +29,7 @@ const TopCategories = () => {
                   <img
                     src={goIcon}
                     alt="icon"
-                    className="w-2 h-2 mt-1 md:h-3 md:w-3 lg:h-5 lg:w-5 ml-2"
+                    className="w-2 h-2 mt-1 md:h-3 md:w-3 lg:h-4 lg:w-4 ml-2"
                   />
                 </li>
                 {hoveredIndex === index && (

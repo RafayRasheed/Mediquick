@@ -121,7 +121,6 @@ const Product = () => {
                 onClick={handleImageClick}
               >
                 <img
-                  loading="lazy"
                   src={item.imageURI}
                   alt={item.title}
                   className="transform transition-transform duration-300 hover:scale-105 focus:outline-none w-full max-h-full"
@@ -278,7 +277,7 @@ const Product = () => {
               style={{ width: "100vw", height: "100vh" }} // Set full-screen width and height
             >
               <motion.img
-                src={item.imageSrc}
+                src={item.imageURI}
                 alt={item.title}
                 className="w-full h-auto max-h-[50vh] md:max-w-[50vw]"
                 initial={{ scale: 0 }}
