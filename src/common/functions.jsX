@@ -15,34 +15,43 @@ export const FirestoreReference = {
   Categories: collection(firestore, "Categories"),
   Products: collection(firestore, "Products"),
 };
+export const convertBase64ToImageUri = ({ base64, type }) => {
+  // console.log(type)
+  const base64Data = base64.split(",")[1] || base64;
 
-export async function updateDataToDB(db, id, data) {
   try {
-    await FirestoreReference[db]?.doc(id.toString()).update(data);
+    const byteCharacters = atob(base64Data);
+    const byteArrays = new Uint8Array(byteCharacters.length);
 
-    console.log("✅", db, "Upadated Successfully", id);
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteArrays[i] = byteCharacters.charCodeAt(i);
+    }
 
-    return true;
+    const blob = new Blob([byteArrays], { type });
+    return URL.createObjectURL(blob);
   } catch (error) {
-    // storeRedux.dispatch(setCategories(data));
-
-    console.error("error on updating", db, error);
-    return "Internal Error";
+    console.error("Invalid Base64 string:", error);
+    return null;
   }
-}
-export async function addDataToDB(db, id, data) {
-  try {
-    await FirestoreReference[db]?.doc(id.toString()).set(data);
+};
 
-    console.log("✅", db, "Add Successfully", id);
-    await getProductsFromDB();
-    return true;
-  } catch (error) {
-    // storeRedux.dispatch(setCategories(data));
+export function foramtProduct(item, full) {
+  const newObj = {};
+  const imageSRC = item.images[item.defaultProductOption.imageId - 1];
+  newObj.imageURI = convertBase64ToImageUri(imageSRC);
+  newObj.id = item["id"];
+  newObj.rating = item["rating"];
+  newObj.discount = item.defaultProductOption.discount;
+  newObj.price = item.defaultProductOption.price;
+  newObj.discountedPrice = item.defaultProductOption.discountedPrice;
+  newObj.title = item["title"];
+  newObj.noOfRatings = item["noOfRatings"];
 
-    console.error("error on adding", db, error);
-    return "Internal Error";
+  if (full) {
+    newObj.description = item["description"];
   }
+
+  return newObj;
 }
 function formatCategories(categories) {
   const { Parent = [], Sub = [] } = categories;
@@ -74,19 +83,43 @@ export async function getCategoriesFromDB() {
     return false;
   }
 }
+export async function getSingleProductFromDB(id) {
+  if (id) {
+    try {
+      const productRef = doc(firestore, "Products", id); // Reference to the specific product
+      const productSnap = await getDoc(productRef);
+
+      if (productSnap.exists()) {
+        const productData = productSnap.data();
+
+        // Check if the product is active
+        if (productData.active === true) {
+          console.log("✅ Active product fetched successfully:", id);
+          return foramtProduct(productData, true);
+        } else {
+          console.log("❌ Product exists but is not active.");
+          return null;
+        }
+      } else {
+        console.log("❌ No product found with the given ID.");
+        return null;
+      }
+    } catch (error) {
+      console.error("❌ Error fetching product:", error);
+      return null;
+    }
+  } else {
+    return null;
+  }
+}
 
 export async function getProductsFromDB() {
-  let data = [];
-
   try {
     const productsRef = collection(firestore, "Products");
     const q = query(productsRef, where("active", "==", true)); // Fetch only active products
 
     const querySnapshot = await getDocs(q);
-    const data = querySnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
+    const data = querySnapshot.docs.map((doc) => foramtProduct(doc.data()));
     storeRedux.dispatch(setProducts(data));
     console.log("✅ Products fetched successfully:", data.length);
     return data;
@@ -97,6 +130,36 @@ export async function getProductsFromDB() {
     return false;
   }
 }
+export async function updateDataToDB(db, id, data) {
+  try {
+    await FirestoreReference[db]?.doc(id.toString()).update(data);
+
+    console.log("✅", db, "Upadated Successfully", id);
+
+    return true;
+  } catch (error) {
+    // storeRedux.dispatch(setCategories(data));
+
+    console.error("error on updating", db, error);
+    return "Internal Error";
+  }
+}
+
+export async function addDataToDB(db, id, data) {
+  try {
+    await FirestoreReference[db]?.doc(id.toString()).set(data);
+
+    console.log("✅", db, "Add Successfully", id);
+    await getProductsFromDB();
+    return true;
+  } catch (error) {
+    // storeRedux.dispatch(setCategories(data));
+
+    console.error("error on adding", db, error);
+    return "Internal Error";
+  }
+}
+
 export async function getDashboardAllData() {
   const categories = await getCategoriesFromDB();
   const products = await getProductsFromDB();
@@ -119,8 +182,11 @@ function convertToKebabCase(str) {
     .trim() // Remove leading and trailing whitespace
     .replace(/\s+/g, "-"); // Replace spaces with dashes
 }
-export function formatUrl(id, title) {
-  return `${id}-pn-${convertToKebabCase(title)}`;
+export function formatUrl(id, title, set) {
+  const diff = "-pn-";
+  return set
+    ? `${id}${diff}${convertToKebabCase(title)}`
+    : title.split(diff)[0];
 }
 export function dataFullData() {
   const date = new Date();

@@ -12,33 +12,12 @@ import { formatUrl } from "../../../common/functions.jsX";
 
 const FlashSaleItem = ({ item }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const [imageURI, setImageURI] = useState(null);
-  const convertBase64ToImageUri = ({ base64, type }) => {
-    // console.log(type)
-    const base64Data = base64.split(",")[1] || base64;
 
-    try {
-      const byteCharacters = atob(base64Data);
-      const byteArrays = new Uint8Array(byteCharacters.length);
-
-      for (let i = 0; i < byteCharacters.length; i++) {
-        byteArrays[i] = byteCharacters.charCodeAt(i);
-      }
-
-      const blob = new Blob([byteArrays], { type });
-      return URL.createObjectURL(blob);
-    } catch (error) {
-      console.error("Invalid Base64 string:", error);
-      return null;
-    }
-  };
   useEffect(() => {
-    const imageSRC = item.images[item.defaultProductOption.imageId - 1];
-    setImageURI(convertBase64ToImageUri(imageSRC));
+    // const imageSRC = item.images[item.defaultProductOption.imageId - 1];
     // const storedQuantity = JSON.parse(localStorage.getItem("cartItems"))?.find(
     //   (anItem) => anItem.id == item.id
     // )?.quantity;
-
     // if (storedQuantity === 0) {
     //   item.quantity = 0;
     // } else {
@@ -87,9 +66,9 @@ const FlashSaleItem = ({ item }) => {
             {isInCart ? i18n.t("removeFromCart") : i18n.t("addToCart")}
           </button>
         )}
-        {item.defaultProductOption.discount && (
+        {item.discount && (
           <div className="absolute top-0 left-0 bg-red-500 text-white py-1 px-3 m-2 rounded overflow-hidden">
-            -{item.defaultProductOption.discount}%
+            -{item.discount}%
           </div>
         )}
         {item.state && (
@@ -98,12 +77,12 @@ const FlashSaleItem = ({ item }) => {
           </div>
         )}
         <Link
-          to={{ pathname: `/p/${formatUrl(item.id, item.title)}` }}
+          to={{ pathname: `/p/${formatUrl(item.id, item.title, true)}` }}
           key={item.id}
         >
           <img
             loading="lazy"
-            src={imageURI}
+            src={item.imageURI}
             alt={item.title}
             className=" max-h-40 sm:max-h-44 md:max-h-52 lg:max-h-56   w-full  object-contain rounded"
           />
@@ -114,10 +93,10 @@ const FlashSaleItem = ({ item }) => {
       <div className="flex md:items-start items-center flex-col ">
         <h3 className="text-lg font-base mt-4">{item.title}</h3>
         <p className="text-red-500  text-base font-semibold line-clamp-2">
-          ${item.defaultProductOption.price}
-          {item.defaultProductOption.discount && (
+          Rs {item.discount ? item.discountedPrice : item.price}
+          {item.discount && (
             <span className="ml-2 text-gray-500 text-xs font-semibold line-through">
-              ${item.defaultProductOption.discountedPrice}
+              {item.price}
             </span>
           )}
         </p>

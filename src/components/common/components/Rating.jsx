@@ -36,7 +36,7 @@ const RatingComp = ({ text, variant, item }) => {
   };
 
   const handleSubmit = () => {
-    item.rates += 1;
+    item.noOfRatings += 1;
     setOpen(false); // Close the dialog after submission
   };
   // Function to render stars
@@ -44,7 +44,7 @@ const RatingComp = ({ text, variant, item }) => {
     const stars = [];
     for (let i = 0; i < 5; i++) {
       // Determine star color based on index and item.stars
-      const starColor = i < item.stars ? "#FFAD33" : "#D1D5DB"; // Orange if index < item.stars, gray otherwise
+      const starColor = i < item.rating ? "#FFAD33" : "#D1D5DB"; // Orange if index < item.stars, gray otherwise
       stars.push(
         <svg
           key={i}
@@ -92,22 +92,22 @@ const RatingComp = ({ text, variant, item }) => {
                 <span className="flex items-center gap-2">
                   Price:
                   <span className="text-red-600 font-semibold">
-                    ${item.price.toFixed(2)}
+                    ${item.price?.toFixed(2)}
                   </span>
                 </span>
               </Typography>
               <Typography variant="body1" mb={2}>
                 <span className="flex items-center gap-2">
-                  Stars: {item.stars.toFixed(1)} {renderStars()}
+                  Stars: {item.rating.toFixed(1)} {renderStars()}
                 </span>
               </Typography>
             </Box>
             <Typography variant="body1" mb={2}>
-              Rates: {item.rates}
+              Rates: {item.noOfRatings}
             </Typography>
-            <Typography variant="body1" mb={2}>
+            {/* <Typography variant="body1" mb={2}>
               Type: {item.type}
-            </Typography>
+            </Typography> */}
           </Box>
           <Box textAlign="center">
             <Rating

@@ -6,7 +6,7 @@ import i18n from "../components/common/components/LangConfig";
 import notFoundIcon from "../assets/notFound.png";
 import { Fab } from "@mui/material";
 
-const NotFound = () => {
+const Loader = () => {
   const [countdown, setCountdown] = useState(20); // Set initial countdown value
 
   // Function to decrement the countdown
@@ -30,7 +30,6 @@ const NotFound = () => {
 
   return (
     <div className="flex flex-col justify-around items-start mt-36 mx-4 md:mx-40 ">
-      <ActiveLastBreadcrumb path="Home/404 Error" />
       <div className="flex flex-col items-center mt-12 mx-auto">
         <div className="flex flex-col justify-center gap-4 items-center text-center">
           <h1 className="text-3xl md:text-8xl">404 Not Found</h1>{" "}
@@ -63,4 +62,4 @@ const NotFound = () => {
   );
 };
 
-export default NotFound;
+export default Loader;
