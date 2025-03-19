@@ -27,6 +27,7 @@ const Product = () => {
     setLoading(true);
     const result = await getSingleProductFromDB(id);
     if (result) {
+      console.log(result);
       setItem(result);
     }
     setLoading(false);
@@ -87,7 +88,16 @@ const Product = () => {
   }
   if (item) {
     return (
-      <div className="flex flex-col mx-4 md:mx-32 mt-48">
+      <div className="flex flex-col mx-4 md:mx-32 mt-24 md:mt-24 lg:mt-28">
+        <div className="text-base md:text-xs lg:text-sm ">
+          <Link to={`/products/${item.selectedCategory.id}/0`}>
+            <span className=" ">{item.selectedCategory.name}</span>
+          </Link>
+          <span className="mx-2 lg:mx-3">{">>"}</span>
+          <Link to={`/products/0/${item.selectedSubCategory.id}`}>
+            <span className=" ">{item.selectedSubCategory.name}</span>
+          </Link>
+        </div>
         <div className="mx-auto  flex flex-col gap-10">
           {/* <ActiveLastBreadcrumb
             path={`${i18n.t("footer.myAccount")}/${item.type}/${item.title}`}

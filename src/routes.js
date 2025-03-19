@@ -30,7 +30,7 @@ const routes = [
       { path: "cart", element: Cart },
       { path: "checkout", element: Checkout },
       { path: "payment", element: Payment },
-      { path: "allProducts", element: AllProducts },
+      { path: "products/:CatId/:SubCatId", element: AllProducts },
       { path: "category", element: Category },
       { path: "p/:title", element: Product },
       { path: "*", element: NotFound },

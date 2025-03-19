@@ -49,6 +49,8 @@ export function foramtProduct(item, full) {
 
   if (full) {
     newObj.description = item["description"];
+    newObj.selectedCategory = item["selectedCategory"];
+    newObj.selectedSubCategory = item["selectedSubCategory"];
   }
 
   return newObj;
@@ -94,7 +96,7 @@ export async function getSingleProductFromDB(id) {
 
         // Check if the product is active
         if (productData.active === true) {
-          console.log("✅ Active product fetched successfully:", id);
+          console.log("✅ Active product fetched successfully:", productData);
           return foramtProduct(productData, true);
         } else {
           console.log("❌ Product exists but is not active.");
