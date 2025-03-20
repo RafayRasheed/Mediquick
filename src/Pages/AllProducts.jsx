@@ -26,6 +26,9 @@ const AllProducts = () => {
   };
 
   useEffect(() => {
+    window.scrollTo({
+      top: 0,
+    });
     const timer = setTimeout(() => {
       setLoading(false);
     }, 2000);
@@ -35,9 +38,6 @@ const AllProducts = () => {
 
   return (
     <div className=" mt-40 flex flex-col gap-5">
-      <Typography variant="h3" align="center" gutterBottom>
-        {i18n.t("allProducts.title")}
-      </Typography>
       <div className=" mx-auto">
         <Grid container spacing={6} justifyContent="center" alignItems="center">
           {loading
@@ -69,14 +69,14 @@ const AllProducts = () => {
           {i18n.t("whiteButtons.loadMore")}
         </button>
       )}
-      <div className="mt-6 flex justify-around items-center md:mx-12">
+      {/* <div className="mt-6 flex justify-around items-center md:mx-12">
         <Link to="..">
           <WhiteButton name={i18n.t("whiteButtons.backToHomePage")} />
         </Link>
         <Link to="/category">
           <RedButton name={i18n.t("redButtons.exploreByCategory")} />
         </Link>
-      </div>
+      </div> */}
     </div>
   );
 };
