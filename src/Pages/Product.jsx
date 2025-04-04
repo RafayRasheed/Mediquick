@@ -15,6 +15,7 @@ import { formatUrl } from "../common/functions.jsX";
 import { getSingleProductFromDB } from "../common/functions.jsX";
 import Loader from "./Loader";
 import Loading from "../components/common/components/Loading";
+import { TopMargin } from "../common/common";
 const Product = () => {
   const { handleIncrease, handleDecrease } = useCart();
   const [quantity, setQuantity] = useState(0);
@@ -88,7 +89,8 @@ const Product = () => {
   }
   if (item) {
     return (
-      <div className="flex flex-col mx-4 md:mx-32 mt-24 md:mt-24 lg:mt-28">
+      <div className="flex flex-col mx-4 md:mx-32 ">
+        <TopMargin />
         <div className="text-base md:text-xs lg:text-sm ">
           <Link to={`/products/${item.selectedCategory.id}/0`}>
             <span className=" ">{item.selectedCategory.name}</span>

@@ -46,6 +46,8 @@ export function foramtProduct(item, full) {
   newObj.discountedPrice = item.defaultProductOption.discountedPrice;
   newObj.title = item["title"];
   newObj.noOfRatings = item["noOfRatings"];
+  newObj.CatId = item["selectedCategory"].id;
+  newObj.SubCatId = item["selectedSubCategory"].id;
 
   if (full) {
     newObj.description = item["description"];

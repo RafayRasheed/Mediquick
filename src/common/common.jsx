@@ -9,3 +9,7 @@ export const Spacer = ({ padding }) => {
   const sd = `h-${padding} md:h-${padding + 4}`;
   return <div className={sd} />;
 };
+
+export const TopMargin = ({}) => {
+  return <div className={"mt-16 md:mt-28"} />;
+};

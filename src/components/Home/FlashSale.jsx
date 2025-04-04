@@ -8,7 +8,7 @@ import i18n from "../common/components/LangConfig";
 import { ITEMS } from "../common/functions/items";
 import { useSelector } from "react-redux";
 const FlashSale = () => {
-  const {products} = useSelector(state=>state.data)
+  const { products } = useSelector((state) => state.data);
   const [timeLeft, setTimeLeft] = useState(
     calculateTimeLeft(new Date("2025-10-27T00:00:00"))
   );
@@ -19,7 +19,7 @@ const FlashSale = () => {
     }, 1000);
 
     return () => clearInterval(timer);
-  },[]);
+  }, []);
 
   return (
     <div className=" p-4 ">
@@ -56,11 +56,7 @@ const FlashSale = () => {
 
       <div className="scrollbar relative  md:overflow-x-hidden hover:overflow-scroll  overflow-y-hidden flex justify-start items-center h-[500px] md:h-[400px] ">
         {products?.map((item, index) => (
-          <FlashSaleItem
-            key={item.id}
-            item={item}
-           
-          />
+          <FlashSaleItem key={item.id} item={item} />
         ))}
       </div>
       <div className="flex justify-center mt-4">
