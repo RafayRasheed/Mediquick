@@ -54,7 +54,7 @@ function PosterSlider() {
     return () => clearInterval(interval);
   }, [currentIndex]);
   return (
-    <div className="w-full  mt-0 sm:mt-4 md:mt-6  xl:mt-10 lg:mt-8  h-[100px]  sm:h-[200px] md:h-[240px] lg:h-[320px] xl:h-[365px] m-auto  px-0 relative group">
+    <div className="w-full mt-0 sm:mt-2 md:mt-4 xl:mt-8 lg:mt-6 h-[100px] sm:h-[200px] md:h-[240px] lg:h-[320px] xl:h-[365px] m-auto  px-0 relative group">
       {/* Image Slider */}
       <div className="w-full h-full flex justify-center items-center">
         {slides.map((slide, index) => (

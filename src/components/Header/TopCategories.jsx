@@ -25,7 +25,9 @@ const TopCategories = () => {
                 onMouseLeave={() => setHoveredIndex(null)}
               >
                 <li className="flex flex-row items-center px-2 py-1 text-base md:text-xs lg:text-sm cursor-pointer underline underline-offset-2 ease-in-out duration-300 transform hover:-translate-y-1">
-                  <Link to={category.link}>{i18n.t(category.name)}</Link>
+                  <Link to={`/products/${category.id}/0`}>
+                    {i18n.t(category.name)}
+                  </Link>
                   <img
                     src={goIcon}
                     alt="icon"
@@ -40,7 +42,9 @@ const TopCategories = () => {
                           key={subIndex}
                           className="px-4 py-2 w-full text-base md:text-xs lg:text-sm cursor-pointer hover:text-white hover:bg-red-500 transition duration-200 border-b border-gray-200 last:border-none"
                         >
-                          {sub.name}
+                          <Link to={`/products/0/${sub.id}`}>
+                            {i18n.t(sub.name)}
+                          </Link>
                         </li>
                       ))}
                     </ul>

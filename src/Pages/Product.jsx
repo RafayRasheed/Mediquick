@@ -15,7 +15,7 @@ import { formatUrl } from "../common/functions.jsX";
 import { getSingleProductFromDB } from "../common/functions.jsX";
 import Loader from "./Loader";
 import Loading from "../components/common/components/Loading";
-import { TopMargin } from "../common/common";
+import { Spacer2, TopMargin } from "../common/common";
 const Product = () => {
   const { handleIncrease, handleDecrease } = useCart();
   const [quantity, setQuantity] = useState(0);
@@ -91,7 +91,7 @@ const Product = () => {
     return (
       <div className="flex flex-col mx-4 md:mx-32 ">
         <TopMargin />
-        <div className="text-base md:text-xs lg:text-sm ">
+        <div className="text-xs md:text-xs lg:text-sm ">
           <Link to={`/products/${item.selectedCategory.id}/0`}>
             <span className=" ">{item.selectedCategory.name}</span>
           </Link>
@@ -100,6 +100,7 @@ const Product = () => {
             <span className=" ">{item.selectedSubCategory.name}</span>
           </Link>
         </div>
+        <Spacer2 level={0} />
         <div className="mx-auto  flex flex-col gap-10">
           {/* <ActiveLastBreadcrumb
             path={`${i18n.t("footer.myAccount")}/${item.type}/${item.title}`}
@@ -111,16 +112,16 @@ const Product = () => {
                   <motion.div
                     role="button"
                     key={index}
-                    className="relative flex items-center justify-center bg-zinc-100 rounded md:pt-12 md:p-8 md:h-[138px] md:w-[170px]"
+                    className="relative flex items-center justify-center  bg-zinc-100 rounded  md:h-[128px] md:w-[128px]"
                     onClick={handleImageClick}
-                    whileHover={{ scale: 1.15 }}
+                    whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.8 }}
                   >
                     <img
                       loading="lazy"
                       src={item.imageURI}
                       alt={item.title}
-                      className="transform transition-transform duration-300 hover:scale-105 focus:outline-none w-full h-full"
+                      className="w-full h-full p-1 md:p-2 lg:p-3 object-contain"
                     />
                   </motion.div>
                 ))}
@@ -129,7 +130,7 @@ const Product = () => {
               {/* <button> */}
               <motion.div
                 role="button"
-                className="relative flex items-center justify-center bg-zinc-100 w-full rounded md:pt-12 md:p-8 md:h-[600px] md:w-[500px]"
+                className="relative flex items-center justify-center bg-zinc-100 w-full rounded  md:p-8 md:h-[600px] md:w-[500px]"
                 onClick={handleImageClick}
               >
                 <img
@@ -291,7 +292,7 @@ const Product = () => {
               <motion.img
                 src={item.imageURI}
                 alt={item.title}
-                className="w-full h-auto max-h-[50vh] md:max-w-[50vw]"
+                className="w-full h-auto max-h-[50vh] md:max-w-[50vw] object-contain"
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 exit={{ scale: 0 }}

@@ -8,7 +8,7 @@ import RedButton from "../components/common/components/RedButton";
 import WhiteButton from "../components/common/components/WhiteButton";
 import Loader from "../components/common/components/Loader";
 import { useSelector } from "react-redux";
-import { TopMargin } from "../common/common";
+import { Spacer2, TextCommon, TopMargin } from "../common/common";
 const AllProducts = () => {
   const [loading, setLoading] = useState(true);
   const [displayedItems, setDisplayedItems] = useState(10);
@@ -29,32 +29,40 @@ const AllProducts = () => {
   //   ...products,
   //   ...products,
   // ];
-  let products2 = [...products];
+  // let products2 = [...products];
   let { CatId, SubCatId } = useParams();
   useEffect(() => {
-    if (products2.length) {
-      setTotalItems(products2.length);
-      setDuplicatedItems(
-        products2.filter((pr) => pr.CatId == CatId || pr.SubCatId == SubCatId)
+    console.log({ CatId, SubCatId });
+    if (products.length) {
+      setLoading(true);
+      const list = products.filter(
+        (pr) => pr.CatId == CatId || pr.SubCatId == SubCatId
       );
+      setDuplicatedItems(list);
+      setTotalItems(list.length);
       setLoading(false);
     }
-  }, [products]);
+  }, [products, CatId, SubCatId]);
   useEffect(() => {
     if (categories.length) {
-      const find = categories.find((cat) => {
+      let cattt = {};
+      const find = categories.map((cat) => {
         if (CatId && CatId != "0") {
           if (cat.id == CatId) {
-            return cat;
+            cattt = cat;
           }
         } else {
-          return cat.subCategories.find((sub) => sub.id == SubCatId);
+          const issub = cat.subCategories.find((sub) => sub.id == SubCatId);
+          if (issub) {
+            cattt = issub;
+          }
           // return cat.subCategories;
         }
       });
-      setSeletedCat(find);
+
+      setSeletedCat(cattt);
     }
-  }, [categories]);
+  }, [categories, CatId, SubCatId]);
   const handleLoadMore = () => {
     // window.scrollTo({
     //   top: window.scrollY - 1500,
@@ -64,7 +72,7 @@ const AllProducts = () => {
     setTimeout(() => {
       setLoading(false);
       setDisplayedItems(displayedItems + 10);
-    }, 2000);
+    }, 500);
   };
 
   useEffect(() => {
@@ -74,12 +82,13 @@ const AllProducts = () => {
   }, []);
 
   return (
-    <div className=" flex flex-col gap-5">
+    <div className=" flex flex-col">
       <TopMargin />
-      <li className="flex flex-row items-center justify-center  text-lg md:text-xl lg:text-2xl xl:text-3xl">
+      <li className="flex flex-row items-center justify-center text-lg md:text-xl lg:text-2xl xl:text-3xl">
         <Link>{seletedCat ? seletedCat.name : ""}</Link>
       </li>
-      <div className=" mx-auto">
+      <Spacer2 level={1} />
+      <div className="mx-auto">
         <Grid container spacing={6} justifyContent="center" alignItems="center">
           {loading
             ? Array.from({ length: displayedItems }).map((_, index) => (
@@ -99,6 +108,8 @@ const AllProducts = () => {
               ))}
         </Grid>
       </div>
+      <Spacer2 level={1} />
+      {console.log(loading, totalItems)}
       {displayedItems < totalItems && (
         <button
           onClick={handleLoadMore}
@@ -107,9 +118,17 @@ const AllProducts = () => {
             hover:bg-gray-50 border text-[#696A75] hover:text-[#696A75] border-[#696A75] hover:border-[#696A75]
             hover:scale-105 hover:-translate-y-2 transform  duration-300 ease-in-out"
         >
-          {i18n.t("whiteButtons.loadMore")}
+          {"Load More"}
         </button>
       )}
+
+      {!loading && totalItems == 0 ? (
+        <TextCommon
+          text="No items found!"
+          level={0}
+          style="flex flex-row items-center justify-center"
+        />
+      ) : null}
       {/* <div className="mt-6 flex justify-around items-center md:mx-12">
         <Link to="..">
           <WhiteButton name={i18n.t("whiteButtons.backToHomePage")} />
