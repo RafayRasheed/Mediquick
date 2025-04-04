@@ -7,9 +7,11 @@ import Services from "../components/common/components/Services";
 import AllProducts from "../components/Home/AllProducts";
 import Featured from "../components/Home/Featured";
 import { ITEMS } from "../components/common/functions/items";
+import { TopMargin } from "../common/common";
 const Home = () => {
   return (
-    <div dir="ltr" className="flex flex-col mt-20 gap-3">
+    <div dir="ltr" className="flex flex-col  gap-3">
+      <TopMargin />
       <Row1 />
       <FlashSale />
       {/* <Categories />
